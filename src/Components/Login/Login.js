@@ -11,9 +11,16 @@ function Login() {
   const [password,setPassword] = useState('');
   const navigate = useNavigate()
 
-  const handleLogin = (e) =>{
+  const handleLogin =  (e) =>{
 
-    signInWithEmailAndPassword(auth,email,password);
+    const data =  signInWithEmailAndPassword(auth,email,password);
+    data
+      .then((data) => {
+        console.log(data.user)
+          localStorage.setItem('user' , JSON.stringify(auth.currentUser))
+      }
+    )
+    .catch(err => console.log(err))
     try {
       navigate('/')
     } catch (error) {
